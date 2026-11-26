@@ -229,7 +229,7 @@ wheels = [
 [[package]]
 name = "browser-use"
 version = "0.13.14"
-source = { registry = "https://pypi.org/simple" }
+source = { editable = "../vendor/browser-use" }
 dependencies = [
     { name = "aiohttp" },
     { name = "anthropic" },
@@ -269,9 +269,89 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "uuid7" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/a2/eb/6b9183ec63541c2c7c1a87c30d142806e7fe3a95748ce95f8e37dcab2335/browser_use-0.13.14.tar.gz", hash = "sha256:9bb2f3d7ea215bf67b415c8e6e546413a3712ac5ea775b223b452189f4582d9d", size = 660419, upload-time = "2026-10-26T23:00:53.246Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/a0/4f/38a786733ed276b361890893687f90829d6d979ae0d06fdaa2124ab4f974/browser_use-0.13.14-py3-none-any.whl", hash = "sha256:0023721820b32a71f209955960eb771f7683cde4ddc2071f36b1641b04925095", size = 765754, upload-time = "2026-10-26T23:00:51.596Z" },
+
+[package.metadata]
+requires-dist = [
+    { name = "agentmail", marker = "extra == 'examples'", specifier = "==0.0.59" },
+    { name = "aiohttp", specifier = "==3.14.5" },
+    { name = "anthropic", specifier = ">=0.76.0,<2.0.0" },
+    { name = "anyio", specifier = "==4.12.1" },
+    { name = "anyio", marker = "extra == 'eval'", specifier = "==4.12.1" },
+    { name = "boto3", marker = "extra == 'aws'", specifier = "==1.42.37" },
+    { name = "botocore", marker = "extra == 'examples'", specifier = "==1.42.37" },
+    { name = "browser-harness", specifier = "==0.1.13" },
+    { name = "browser-use", extras = ["cli", "examples", "aws", "oci"], marker = "extra == 'all'" },
+    { name = "browser-use", extras = ["cli", "oci"], marker = "extra == 'cli-oci'" },
+    { name = "browser-use-core", marker = "platform_machine == 'arm64' and sys_platform == 'darwin' and extra == 'core'", specifier = "==0.13.3" },
+    { name = "browser-use-core", marker = "platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'core'", specifier = "==0.13.3" },
+    { name = "browser-use-core", marker = "platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'core'", specifier = "==0.13.3" },
+    { name = "browser-use-core", marker = "platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'core'", specifier = "==0.13.3" },
+    { name = "browser-use-core", marker = "(platform_machine == 'AMD64' and sys_platform == 'win32' and extra == 'core') or (platform_machine == 'x86_64' and sys_platform == 'win32' and extra == 'core')", specifier = "==0.13.3" },
+    { name = "browser-use-sdk", specifier = ">=3.10.0,<4" },
+    { name = "bubus", specifier = "==1.5.6" },
+    { name = "cdp-use", specifier = "==1.4.5" },
+    { name = "click", specifier = "==8.3.3" },
+    { name = "cloudpickle", specifier = "==3.1.2" },
+    { name = "datamodel-code-generator", marker = "extra == 'eval'", specifier = "==0.75.1" },
+    { name = "google-api-core", specifier = "==2.29.0" },
+    { name = "google-api-python-client", specifier = "==2.188.0" },
+    { name = "google-auth", specifier = "==2.48.0" },
+    { name = "google-auth-oauthlib", specifier = "==1.2.4" },
+    { name = "google-genai", specifier = "==1.65.0" },
+    { name = "groq", specifier = "==1.0.0" },
+    { name = "httpx", specifier = "==0.28.1" },
+    { name = "imageio", extras = ["ffmpeg"], marker = "extra == 'video'", specifier = "==2.37.2" },
+    { name = "imgcat", marker = "extra == 'examples'", specifier = "==0.6.0" },
+    { name = "inquirerpy", specifier = "==0.3.4" },
+    { name = "langchain-openai", marker = "extra == 'examples'", specifier = "==1.7.2" },
+    { name = "lmnr", extras = ["all"], marker = "extra == 'eval'", specifier = "==0.7.42" },
+    { name = "markdownify", specifier = "==1.2.2" },
+    { name = "mcp", specifier = "==2.1.1" },
+    { name = "numpy", marker = "extra == 'video'", specifier = "==2.4.1" },
+    { name = "oci", marker = "extra == 'oci'", specifier = "==2.166.0" },
+    { name = "ollama", specifier = "==0.6.1" },
+    { name = "openai", specifier = ">=2.26.0,<4.0.0" },
+    { name = "openai", marker = "extra == 'openai-tools'", specifier = ">=3.31.0,<4.0.0" },
+    { name = "pillow", specifier = "==12.3.0" },
+    { name = "posthog", specifier = "==7.7.0" },
+    { name = "psutil", specifier = "==7.2.2" },
+    { name = "psutil", marker = "extra == 'eval'", specifier = "==7.2.2" },
+    { name = "pydantic", specifier = "==2.13.5" },
+    { name = "pydantic-settings", specifier = "==2.15.0" },
+    { name = "pyobjc", marker = "platform_system == 'darwin'", specifier = "==12.1" },
+    { name = "pyotp", specifier = "==2.9.0" },
+    { name = "pypdf", specifier = "==6.16.2" },
+    { name = "python-docx", specifier = "==1.2.0" },
+    { name = "python-dotenv", specifier = "==1.2.2" },
+    { name = "reportlab", specifier = "==4.4.9" },
+    { name = "requests", specifier = "==2.33.0" },
+    { name = "rich", specifier = "==14.3.3" },
+    { name = "screeninfo", marker = "platform_system != 'darwin'", specifier = "==0.8.1" },
+    { name = "typing-extensions", specifier = "==4.15.0" },
+    { name = "uuid7", specifier = "==0.1.0" },
+]
+provides-extras = ["openai-tools", "cli", "core", "aws", "oci", "video", "examples", "eval", "cli-oci", "all"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "build", specifier = "==1.4.0" },
+    { name = "codespell", specifier = "==2.4.1" },
+    { name = "fastapi", specifier = "==0.128.0" },
+    { name = "inngest", specifier = "==0.5.15" },
+    { name = "ipdb", specifier = "==0.13.13" },
+    { name = "lmnr", extras = ["all"], specifier = "==0.7.42" },
+    { name = "pre-commit", specifier = "==4.5.1" },
+    { name = "pydantic-settings", specifier = "==2.15.0" },
+    { name = "pyright", specifier = "==1.1.408" },
+    { name = "pytest", specifier = "==9.0.2" },
+    { name = "pytest-asyncio", specifier = "==1.3.0" },
+    { name = "pytest-httpserver", specifier = "==1.1.3" },
+    { name = "pytest-timeout", specifier = "==2.4.0" },
+    { name = "pytest-xdist", specifier = "==3.8.0" },
+    { name = "ruff", specifier = "==0.14.14" },
+    { name = "tokencost", specifier = "==0.1.26" },
+    { name = "ty", specifier = "==0.0.14" },
+    { name = "uvicorn", specifier = "==0.40.0" },
 ]
 
 [[package]]
@@ -321,7 +401,7 @@ mysql = [
 
 [package.metadata]
 requires-dist = [
-    { name = "browser-use", marker = "extra == 'agent'", specifier = "==0.13.14" },
+    { name = "browser-use", marker = "extra == 'agent'", editable = "../vendor/browser-use" },
     { name = "celery", extras = ["redis"], specifier = "==5.5.3" },
     { name = "channels", specifier = "==4.3.1" },
     { name = "channels-redis", specifier = "==4.3.0" },

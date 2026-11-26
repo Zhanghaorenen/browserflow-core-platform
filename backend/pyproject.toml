@@ -13,6 +13,10 @@ dependencies = [
 [project.optional-dependencies]
 agent = ["browser-use==0.13.14"]
 mysql = ["mysqlclient==2.2.7"]
+
+[tool.uv.sources]
+browser-use = { path = "../vendor/browser-use", editable = true }
+
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings"
 pythonpath = ["."]

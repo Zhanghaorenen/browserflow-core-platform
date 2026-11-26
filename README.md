@@ -53,6 +53,9 @@ flowchart LR
 | `demo-sites/` | 本地产品目录、动态列表和企业表单 |
 | `docker/`、`docker-compose.yml` | MySQL、Redis、Celery、Daphne 和 Nginx 部署 |
 | `scripts/dev.py` | 无 Docker 的本地启动入口 |
+| `vendor/browser-use/` | Browser Use 0.13.14 官方源码和许可证 |
+
+平台入口在 [BrowserAgentService](backend/apps/core/agent.py)，Browser Use 的 Agent 循环在 [agent/service.py](vendor/browser-use/browser_use/agent/service.py)，浏览器会话在 [browser/session.py](vendor/browser-use/browser_use/browser/session.py)。本地和 Docker 都从仓库内的源码安装 Browser Use，原始源码包的下载地址和 SHA256 记录在 [PROVENANCE.json](vendor/browser-use/PROVENANCE.json)。
 
 ## 配置真实模型
 
@@ -95,4 +98,4 @@ npm --prefix frontend run test:e2e
 
 ## 许可证
 
-项目采用 [MIT](LICENSE)。Browser Use 作为固定版本的 Python 依赖接入，保留 [上游许可与版权声明](docs/BROWSER_USE_LICENSE)。
+项目采用 [MIT](LICENSE)。Browser Use 0.13.14 的源码随项目提供，保留 [上游 MIT 许可证和版权声明](vendor/browser-use/LICENSE)。
