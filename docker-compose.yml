@@ -1,0 +1,73 @@
+name: browserflow
+services:
+  mysql:
+    image: mysql:8.4
+    env_file: ${ENV_FILE:-.env}
+    volumes: [mysql-data:/var/lib/mysql]
+    healthcheck:
+      test: [CMD-SHELL, 'MYSQL_PWD=$$MYSQL_ROOT_PASSWORD mysqladmin ping -h localhost -u root --silent']
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+  redis:
+    image: redis:7.4-alpine
+    command: [redis-server, --appendonly, 'yes']
+    volumes: [redis-data:/data]
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  init:
+    build: {context: ., dockerfile: docker/backend.Dockerfile}
+    env_file: ${ENV_FILE:-.env}
+    command: [sh, -c, 'python manage.py migrate --noinput && python manage.py seed_templates && python manage.py collectstatic --noinput']
+    depends_on:
+      mysql: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    volumes: [static-data:/app/backend/staticfiles]
+  web:
+    build: {context: ., dockerfile: docker/backend.Dockerfile}
+    env_file: ${ENV_FILE:-.env}
+    depends_on:
+      init: {condition: service_completed_successfully}
+    volumes: [media-data:/app/backend/media, static-data:/app/backend/staticfiles]
+    restart: unless-stopped
+    init: true
+  worker:
+    build: {context: ., dockerfile: docker/backend.Dockerfile}
+    env_file: ${ENV_FILE:-.env}
+    command: [celery, -A, config, worker, --loglevel=INFO, --concurrency=2, --max-tasks-per-child=10]
+    depends_on:
+      init: {condition: service_completed_successfully}
+      demo: {condition: service_started}
+    volumes: [media-data:/app/backend/media]
+    shm_size: 1gb
+    mem_limit: 3g
+    init: true
+    restart: unless-stopped
+  beat:
+    build: {context: ., dockerfile: docker/backend.Dockerfile}
+    env_file: ${ENV_FILE:-.env}
+    command: [celery, -A, config, beat, --loglevel=INFO, --schedule=/tmp/celerybeat-schedule]
+    depends_on:
+      init: {condition: service_completed_successfully}
+    restart: unless-stopped
+  demo:
+    build: {context: ., dockerfile: docker/backend.Dockerfile}
+    command: [python, /app/demo-sites/server.py]
+    init: true
+    restart: unless-stopped
+  nginx:
+    build: {context: ., dockerfile: docker/frontend.Dockerfile}
+    ports: ['8080:80']
+    depends_on: [web]
+    volumes: [static-data:/srv/static:ro]
+    restart: unless-stopped
+volumes:
+  mysql-data:
+  redis-data:
+  static-data:
+  media-data:

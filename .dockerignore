@@ -1,0 +1,11 @@
+.git
+.venv
+.python
+upstream
+**/node_modules
+**/dist
+**/__pycache__
+**/*.sqlite3
+**/media
+.env
+test-results

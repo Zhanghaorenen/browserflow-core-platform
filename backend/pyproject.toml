@@ -1,0 +1,19 @@
+[project]
+name = "browserflow-agent"
+version = "1.0.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "Django==5.2.8", "djangorestframework==3.16.1",
+  "djangorestframework-simplejwt==5.5.1", "django-cors-headers==4.9.0",
+  "celery[redis]==5.5.3", "channels==4.3.1", "channels-redis==4.3.0",
+  "daphne==4.2.1", "django-environ==0.12.0", "pydantic==2.13.5",
+  "httpx==0.28.1", "jsonschema==4.25.1", "playwright==1.58.0",
+  "pytest==8.4.2", "pytest-django==4.11.1", "pytest-asyncio==1.2.0"
+]
+[project.optional-dependencies]
+agent = ["browser-use==0.13.14"]
+mysql = ["mysqlclient==2.2.7"]
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+pythonpath = ["."]
+asyncio_mode = "auto"
